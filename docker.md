@@ -8,14 +8,16 @@ docker run -d -p 8080:8080 --name swagger-editor swaggerapi/swagger-editor
 
 ## swagger-ui
 
-```src/env.ui.list
+env.ui.list
+
+```
 # reload env for swagger-ui
 API_URLS=[{name:'user', url:'src/user.yaml'}, {name:'team', url:'src/team.yaml'}, {name:'card', url:'src/card.yaml'}, {name:'date', url:'src/date.yaml'}]
 ```
 
 
 ```
-alias swagger-ui='docker run -it --rm -v `pwd`/src:/usr/share/nginx/html/src/ -p 8081:8080 -d --name swagger-ui --env-file ./src/env.ui.list swaggerapi/swagger-ui '
+alias swagger-ui='docker run -it --rm -v `pwd`:/usr/share/nginx/html/src/ -p 8081:8080 -d --name swagger-ui --env-file env.ui.list swaggerapi/swagger-ui'
 ```
 
 ## swagger-codegen
