@@ -18,6 +18,9 @@ API_URLS=[{name:'user', url:'src/user.yaml'}, {name:'team', url:'src/team.yaml'}
 
 ```
 alias swagger-ui='docker run -it --rm -v `pwd`:/usr/share/nginx/html/src/ -p 8081:8080 -d --name swagger-ui --env-file env.ui.list swaggerapi/swagger-ui'
+
+# https://apis.guru/browse-apis/
+docker run -it --rm -p 8082:8080 -d swaggerapi/swagger-ui
 ```
 
 ## swagger-codegen

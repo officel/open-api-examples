@@ -1,0 +1,188 @@
+swagger: "2.0"
+info:
+  version: 1.0.0
+  title: ベーシックサンプル
+  description: |
+    ベーシックなswagger.ymlのサンプル
+
+    * 記載順序を、list, create, read, update, delete とする
+    * put method は HTTP/1.1 の仕様上、リソースの置換を目的としており、リソースの一部を書き換える場合に適していない
+    * もちろんリソースの登録に用いるのも適していない
+    * patch method は HTTP/1.1 の正式な仕様ではなく Appendix であることに留意する
+    * 更新処理について post, put, patch のいずれかを選択するのはチームで検討して決める
+
+  termsOfService: http://example.com/terms/
+  contact:
+    name: Office L
+    email: foo@example.com
+    url: https://officel.github.io
+  license:
+    name: MIT License
+    url: http://github.com/gruntjs/grunt/blob/master/LICENSE-MIT
+
+host: api.example.com
+basePath: /v1/
+
+externalDocs:
+  url: https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md
+  description: OpenAPI Specification Version 2.0
+
+schemes:
+  - https
+consumes:
+  - application/json
+produces:
+  - application/json
+
+paths:
+  /items:
+    get:
+      operationId: listItems
+      summary: collection (list, describe, search) items
+      description: コレクションを取得する
+      tags:
+        - Items
+      parameters:
+        - description: A query string.
+          in: query
+          name: q
+          type: string
+      responses:
+        '200':
+          description: List of found items.
+          schema:
+            $ref: '#/definitions/ItemsInfoResponse'
+
+    post:
+      operationId: addItems
+      summary: 'CRUD: Create item'
+      description: リソースを登録する
+      tags:
+        - Items
+      parameters:
+      responses:
+  /items/{id}:
+    get:
+      operationId: getItems
+      summary: 'CRUD: Read item detail'
+      description: リソースを取得する
+      tags:
+        - Items
+      parameters:
+      responses:
+    post:
+      operationId: postItems
+      summary: 'CRUD: Update item (key=value...)'
+      description: リソースを更新する
+      tags:
+        - Items
+      parameters:
+      responses:
+    put:
+      deprecated: true
+      operationId: putItems
+      summary: 'CRUD: Update item (replace all)'
+      description: リソースを更新する
+      tags:
+        - Items
+      parameters:
+      responses:
+    patch:
+      deprecated: true
+      operationId: patchItems
+      summary: 'CRUD: Update item (replace only set schema)'
+      description: リソースを更新する
+      tags:
+        - Items
+      parameters:
+      responses:
+    delete:
+      operationId: deleteItems
+      summary: 'CRUD: Delete item'
+      description: リソースを削除する
+      tags:
+        - Items
+      parameters:
+      responses:
+
+
+definitions:
+  ItemShortInfo:
+    properties:
+      full_name:
+        description: User full name
+        type: string
+      id:
+        description: User ID
+        type: string
+      profile_picture:
+        description: URL to user profile picture
+        type: string
+      username:
+        description: 'User name, nickname'
+        type: string
+    type: object
+
+  ItemsInfoResponse:
+    properties:
+      data:
+        description: Item short information entries
+        items:
+          $ref: '#/definitions/ItemShortInfo'
+        type: array
+      meta:
+        $ref: '#/definitions/MetaData'
+        description: Response meta-data
+    type: object
+
+  MetaData:
+    properties:
+      code:
+        description: HTTP result code
+        format: int32
+        type: integer
+    type: object
+
+
+parameters:
+  skipParam:
+    name: skip
+    in: query
+    description: number of items to skip
+    required: true
+    type: integer
+    format: int32
+  limitParam:
+    name: limit
+    in: query
+    description: max records to return
+    required: true
+    type: integer
+    format: int32
+
+
+responses:
+  NotFound:
+    description: Entity not found.
+  IllegalInput:
+    description: Illegal input for operation.
+  GeneralError:
+    description: General Error
+    schema:
+      $ref: '#/definitions/GeneralError'
+
+
+securityDefinitions:
+  api_key:
+    type: apiKey
+    name: api_key
+    in: header
+
+security:
+  api_key: []
+
+
+tags:
+  - name: Items
+    description: アイテム情報
+
