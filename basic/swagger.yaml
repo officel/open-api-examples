@@ -61,6 +61,9 @@ paths:
         - Items
       parameters:
       responses:
+      security:
+        api_key: []
+
   /items/{id}:
     get:
       operationId: getItems
@@ -70,6 +73,7 @@ paths:
         - Items
       parameters:
       responses:
+
     post:
       operationId: postItems
       summary: 'CRUD: Update item (key=value...)'
@@ -78,6 +82,9 @@ paths:
         - Items
       parameters:
       responses:
+      security:
+        api_key: []
+
     put:
       deprecated: true
       operationId: putItems
@@ -87,6 +94,9 @@ paths:
         - Items
       parameters:
       responses:
+      security:
+        api_key: []
+
     patch:
       deprecated: true
       operationId: patchItems
@@ -96,6 +106,9 @@ paths:
         - Items
       parameters:
       responses:
+      security:
+        api_key: []
+
     delete:
       operationId: deleteItems
       summary: 'CRUD: Delete item'
@@ -104,7 +117,8 @@ paths:
         - Items
       parameters:
       responses:
-
+      security:
+        api_key: []
 
 definitions:
   ItemShortInfo:
@@ -177,9 +191,6 @@ securityDefinitions:
     type: apiKey
     name: api_key
     in: header
-
-security:
-  api_key: []
 
 
 tags:
